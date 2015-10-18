@@ -10,23 +10,42 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
+
+            //展示並行模式 ,會丟出updateConcurrencyException 然後可以自行決定後續
+            //參考debug_img
+            using (var db = new ContosoUniversityEntities())
+            {
+                var c = db.Course.Find(1);
+                c.Credits = 100003;
+
+                Console.ReadKey();
+                db.SaveChanges();
+            }
+
+        }
+
+        private static void 離線模式()
+        {
+            //離線模式 (不在同一個dbcontext 生命週期)
+
             Course c;
             using (var db = new ContosoUniversityEntities())
             {
                 c = db.Course.Find(1);
-                c.Credits = 200;             
+                c.Credits = 200;
 
             }
 
             using (var db = new ContosoUniversityEntities())
             {
                 db.Database.Log = Console.Write;
+                //db.Course.Attach(c); //等同entry.state
                 db.Entry(c).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
 
                 Console.WriteLine(c.Credits);
+
             }
-           
         }
 
         private void Day2_Entity() 
