@@ -10,7 +10,27 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
+            Course c;
+            using (var db = new ContosoUniversityEntities())
+            {
+                c = db.Course.Find(1);
+                c.Credits = 200;             
 
+            }
+
+            using (var db = new ContosoUniversityEntities())
+            {
+                db.Database.Log = Console.Write;
+                db.Entry(c).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                Console.WriteLine(c.Credits);
+            }
+           
+        }
+
+        private void Day2_Entity() 
+        {
             using (var db = new ContosoUniversityEntities())
             {
 
@@ -35,6 +55,7 @@ namespace ConsoleApplication1
                 db.SaveChanges();
             }
         }
+
 
 
     }
