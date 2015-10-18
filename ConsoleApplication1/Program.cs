@@ -10,6 +10,20 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
+            //練習列舉
+            using (var db = new ContosoUniversityEntities())
+            {
+                var data = db.Course;
+                foreach (var item in data)
+                {
+                    Console.WriteLine(item.Credits + "\t" + item.Title);
+                }
+            }
+
+        }
+
+        private static void 使用預存程序()
+        {
             //使用預存程序
             using (var db = new ContosoUniversityEntities())
             {
@@ -19,7 +33,6 @@ namespace ConsoleApplication1
                     Console.WriteLine(item.CourseID + "\t" + item.Title);
                 }
             }
-
         }
 
         private static void 展示並行模式()
@@ -29,7 +42,7 @@ namespace ConsoleApplication1
             using (var db = new ContosoUniversityEntities())
             {
                 var c = db.Course.Find(1);
-                c.Credits = 100003;
+                c.Credits = CourseCreated.high;
 
                 Console.ReadKey();
                 db.SaveChanges();
@@ -44,7 +57,7 @@ namespace ConsoleApplication1
             using (var db = new ContosoUniversityEntities())
             {
                 c = db.Course.Find(1);
-                c.Credits = 200;
+                c.Credits = CourseCreated.low;
 
             }
 
@@ -70,7 +83,7 @@ namespace ConsoleApplication1
                 Console.WriteLine("----------------------------------------------");
 
                 var c = db.Course.Find(5);
-                c.Credits = 100;
+                c.Credits = CourseCreated.mid;
 
                 var ce = db.Entry(c);
                 ce.State = System.Data.Entity.EntityState.Modified;
