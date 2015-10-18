@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,30 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
+            //練習預存程序 + Log
+            using (var db = new ContosoUniversityEntities())
+            {
+                //Log 可存入其他地方
+                db.Database.Log = (msg) =>
+                {
+                    Trace.Write(msg);
+                };
+
+
+                //使用view
+                var data = db.vwCourse;
+                foreach (var item in data)
+                {
+                    Console.WriteLine(item.Credits + "\t" + item.Title);
+                }
+
+                Console.Read();
+            }
+
+        }
+
+        private static void 練習列舉()
+        {
             //練習列舉
             using (var db = new ContosoUniversityEntities())
             {
@@ -19,7 +44,6 @@ namespace ConsoleApplication1
                     Console.WriteLine(item.Credits + "\t" + item.Title);
                 }
             }
-
         }
 
         private static void 使用預存程序()
