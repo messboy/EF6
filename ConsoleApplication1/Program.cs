@@ -10,7 +10,20 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
+            //使用預存程序
+            using (var db = new ContosoUniversityEntities())
+            {
+                var data = db.GetCourse("%git%");
+                foreach (var item in data)
+                {
+                    Console.WriteLine(item.CourseID + "\t" + item.Title);
+                }
+            }
 
+        }
+
+        private static void 展示並行模式()
+        {
             //展示並行模式 ,會丟出updateConcurrencyException 然後可以自行決定後續
             //參考debug_img
             using (var db = new ContosoUniversityEntities())
@@ -21,7 +34,6 @@ namespace ConsoleApplication1
                 Console.ReadKey();
                 db.SaveChanges();
             }
-
         }
 
         private static void 離線模式()

@@ -80,6 +80,9 @@
     <Compile Include="Enrollment.cs">
       <DependentUpon>ContosoUniversity.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetCourse_Result.cs">
+      <DependentUpon>ContosoUniversity.tt</DependentUpon>
+    </Compile>
     <Compile Include="OfficeAssignment.cs">
       <DependentUpon>ContosoUniversity.tt</DependentUpon>
     </Compile>
@@ -116,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Debug_Img\Concurrency_Bug.png" />
+    <Content Include="sql\預儲程序1.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
